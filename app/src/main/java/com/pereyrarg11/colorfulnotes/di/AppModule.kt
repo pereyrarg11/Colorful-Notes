@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.pereyrarg11.colorfulnotes.feature_note.data.data_source.NoteDataBase
 import com.pereyrarg11.colorfulnotes.feature_note.data.repository.NoteRepositoryImpl
 import com.pereyrarg11.colorfulnotes.feature_note.domain.repository.NoteRepository
+import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.AddNoteUseCase
 import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.DeleteNoteUseCase
 import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.GetNotesUseCase
 import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.NoteUseCases
@@ -36,8 +37,9 @@ object AppModule {
     @Singleton
     fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
         return NoteUseCases(
-            getNotesUseCase = GetNotesUseCase(repository),
-            deleteNoteUseCase = DeleteNoteUseCase(repository),
+            getNotes = GetNotesUseCase(repository),
+            deleteNote = DeleteNoteUseCase(repository),
+            addNote = AddNoteUseCase(repository),
         )
     }
 }
