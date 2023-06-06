@@ -5,10 +5,7 @@ import androidx.room.Room
 import com.pereyrarg11.colorfulnotes.feature_note.data.data_source.NoteDataBase
 import com.pereyrarg11.colorfulnotes.feature_note.data.repository.NoteRepositoryImpl
 import com.pereyrarg11.colorfulnotes.feature_note.domain.repository.NoteRepository
-import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.AddNoteUseCase
-import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.DeleteNoteUseCase
-import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.GetNotesUseCase
-import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.NoteUseCases
+import com.pereyrarg11.colorfulnotes.feature_note.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +37,7 @@ object AppModule {
             getNotes = GetNotesUseCase(repository),
             deleteNote = DeleteNoteUseCase(repository),
             addNote = AddNoteUseCase(repository),
+            getNote = GetNoteUseCase(repository),
         )
     }
 }
