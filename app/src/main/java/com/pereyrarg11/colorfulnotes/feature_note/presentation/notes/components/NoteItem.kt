@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -52,6 +53,7 @@ fun NoteItem(
                     color = Color(
                         ColorUtils.blendARGB(note.color, 0x000000, 0.2f)
                     ),
+                    topLeft = Offset(size.width - cutCornerSize.toPx(), -100f),
                     size = Size(cutCornerSize.toPx() + 100f, cutCornerSize.toPx() + 100f),
                     cornerRadius = CornerRadius(cornerRadius.toPx())
                 )
@@ -67,7 +69,7 @@ fun NoteItem(
             Text(
                 text = note.title,
                 style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = Color.Black,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -75,7 +77,7 @@ fun NoteItem(
             Text(
                 text = note.content,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = Color.Black,
                 maxLines = 10,
                 overflow = TextOverflow.Ellipsis,
             )
@@ -87,7 +89,8 @@ fun NoteItem(
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Delete note"
+                contentDescription = "Delete note",
+                tint = Color.Black,
             )
         }
     }

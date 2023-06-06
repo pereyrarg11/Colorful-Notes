@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -55,13 +55,13 @@ fun NotesScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "Your note",
+                    text = "Your notes",
                     style = MaterialTheme.typography.headlineLarge
                 )
                 IconButton(
                     onClick = { viewModel.onEvent(NotesEvent.ToggleOrderSection) },
                 ) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Sort")
+                    Icon(imageVector = Icons.Default.List, contentDescription = "Sort")
                 }
             }
             AnimatedVisibility(
@@ -78,34 +78,34 @@ fun NotesScreen(
                         viewModel.onEvent(NotesEvent.Order(it))
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(state.notes) { note ->
-                        NoteItem(
-                            note = note,
-                            onDeleteClick = {
-                                viewModel.onEvent(NotesEvent.DeleteNote(note))
-                                scope.launch {
-                                    val result = snackbarHostState.showSnackbar(
-                                        message = "Note deleted",
-                                        actionLabel = "Undo"
-                                    )
-                                    if (result == SnackbarResult.ActionPerformed) {
-                                        viewModel.onEvent(NotesEvent.RestoreNote)
-                                    }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(state.notes) { note ->
+                    NoteItem(
+                        note = note,
+                        onDeleteClick = {
+                            viewModel.onEvent(NotesEvent.DeleteNote(note))
+                            scope.launch {
+                                val result = snackbarHostState.showSnackbar(
+                                    message = "Note deleted",
+                                    actionLabel = "Undo"
+                                )
+                                if (result == SnackbarResult.ActionPerformed) {
+                                    viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    navController.navigate(
-                                        Screen.AddEditNoteScreen.route
-                                                + "?noteId=${note.id}&noteColor=${note.color}"
-                                    )
-                                }
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                    }
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                navController.navigate(
+                                    Screen.AddEditNoteScreen.route
+                                            + "?noteId=${note.id}&noteColor=${note.color}"
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
