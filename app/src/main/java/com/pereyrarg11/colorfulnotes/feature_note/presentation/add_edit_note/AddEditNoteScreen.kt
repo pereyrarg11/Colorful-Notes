@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.pereyrarg11.colorfulnotes.core.util.TestTags
 import com.pereyrarg11.colorfulnotes.feature_note.domain.model.Note
 import com.pereyrarg11.colorfulnotes.feature_note.presentation.add_edit_note.components.TransparentHintTextField
 import kotlinx.coroutines.flow.collectLatest
@@ -67,7 +68,7 @@ fun AddEditNoteScreen(
                 onClick = { viewModel.onEvent(AddEditNoteEvent.SaveNote) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
-                Icon(imageVector = Icons.Default.Done, contentDescription = "Save note")
+                Icon(imageVector = Icons.Default.Done, contentDescription = "Save")
             }
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -123,6 +124,7 @@ fun AddEditNoteScreen(
                 isHintVisible = titleState.isHintVisible,
                 singleLine = true,
                 textStyle = MaterialTheme.typography.headlineMedium,
+                testTag = TestTags.TITLE_TEXT_FIELD,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -133,7 +135,8 @@ fun AddEditNoteScreen(
                 onFocusChange = { viewModel.onEvent(AddEditNoteEvent.ChangeContentFocus(it)) },
                 isHintVisible = contentState.isHintVisible,
                 textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.fillMaxHeight()
+                modifier = Modifier.fillMaxHeight(),
+                testTag = TestTags.CONTENT_TEXT_FIELD,
             )
         }
     }
